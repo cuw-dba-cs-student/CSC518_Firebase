@@ -29,44 +29,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Write a message to the database
-        //FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //DatabaseReference creditCardRef = database.getReference("creditCards");
-        //DatabaseReference myRef = database.getReference("blah");
-
-        //create card and store in firebase (maybe move this to CORE hint hint)
-        CreditCard cc = new CreditCard("Chase Sapphire", "1/1/19", 3000, 50000);
-        Core.creditCardRef.push().setValue(cc);
-
-        //asynchronous call (non-blocking call) - Observer Design Pattern
-        /*Core.creditCardRef.addValueEventListener(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                //String value = dataSnapshot.getValue(String.class);
-                //System.out.println("********* " + dataSnapshot.toString());
-                for(DataSnapshot ds : dataSnapshot.getChildren())
-                {
-                    //System.out.println("********* " + ds.toString());
-                    //de-serialize the card
-                    CreditCard tempCC = ds.getValue(CreditCard.class);
-                    Core.addCreditCard(tempCC);
-                }
-
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error)
-            {
-                // Failed to read value
-
-            }
-        }); */
+        //Attach an event listener to the Credit Card node in the Database
+        Core.creditCardRef.addValueEventListener(Core.ccListener);
+        //Attach an event listener to the Loyalty Program node in the Database
+        Core.lpReference.addValueEventListener(Core.lpListener);
 
 
         this.creditCardLV = (ListView)this.findViewById(R.id.creditCardListView);

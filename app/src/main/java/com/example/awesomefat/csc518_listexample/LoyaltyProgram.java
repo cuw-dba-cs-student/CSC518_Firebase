@@ -1,10 +1,16 @@
 package com.example.awesomefat.csc518_listexample;
 
-public class LoyaltyProgram
-{
+import java.io.Serializable;
+
+public class LoyaltyProgram implements Serializable {
     private String name;
     private String bank;
     private int point_balance;
+
+
+    public LoyaltyProgram(){
+        //Default constructor required for calls to DataSnapshot.getValue(LoyaltyProgram.class)
+    }
 
     public LoyaltyProgram(String name, String bank)
     {

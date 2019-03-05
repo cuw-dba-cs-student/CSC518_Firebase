@@ -30,6 +30,7 @@ public class AddLoyaltyProgramActivity extends AppCompatActivity
 
         LoyaltyProgram lp = new LoyaltyProgram(programName, bankName, currPoints);
         Core.addLoyaltyProgram(lp);
+        Core.lpReference.push().setValue(lp);
         this.finish();
     }
 }
