@@ -30,19 +30,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference creditCardRef = database.getReference("creditCards");
-        DatabaseReference myRef = database.getReference("blah");
+        //FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //DatabaseReference creditCardRef = database.getReference("creditCards");
+        //DatabaseReference myRef = database.getReference("blah");
 
         //create card and store in firebase (maybe move this to CORE hint hint)
         CreditCard cc = new CreditCard("Chase Sapphire", "1/1/19", 3000, 50000);
-        //creditCardRef.push().setValue(cc);
-
-        //myRef.setValue("Hello, World!");
-        //myRef2.setValue("LOL");
+        Core.creditCardRef.push().setValue(cc);
 
         //asynchronous call (non-blocking call) - Observer Design Pattern
-        creditCardRef.addValueEventListener(new ValueEventListener()
+        /*Core.creditCardRef.addValueEventListener(new ValueEventListener()
         {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
@@ -69,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 // Failed to read value
 
             }
-        });
+        }); */
 
 
         this.creditCardLV = (ListView)this.findViewById(R.id.creditCardListView);
