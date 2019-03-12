@@ -9,10 +9,13 @@ import com.google.firebase.database.ValueEventListener;
 //singleton - a class filled with stuff acccccebile by everything
 public class Core
 {
-    public static LinkedListOfCreditCards theCreditCardsLL = new LinkedListOfCreditCards();
-    public static LinkedListOfLoyaltyPrograms theLoyaltyProgramsLL = new LinkedListOfLoyaltyPrograms();
     public static CreditCardArrayAdapterForLinkedLists ccCustomAdapter;
+    public static LinkedListOfCreditCards theCreditCardsLL = new LinkedListOfCreditCards();
+    public static CreditCard currentCC = null;
+
     public static LoyaltyProgramArrayAdapterForLinkedLists lpCustomAdapter;
+    public static LinkedListOfLoyaltyPrograms theLoyaltyProgramsLL = new LinkedListOfLoyaltyPrograms();
+    public static LoyaltyProgram currentLP = null;
 
     private static FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     public static DatabaseReference creditCardRef = mDatabase.getReference("creditCards");

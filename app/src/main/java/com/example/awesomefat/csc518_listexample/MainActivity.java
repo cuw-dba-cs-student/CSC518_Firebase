@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,13 +22,15 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private ListView creditCardLV, loyaltyProgramLV;
-
+    private MainActivity myContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.myContext = this;
 
         //Attach an event listener to the Credit Card node in the Database
         Core.creditCardRef.addValueEventListener(Core.ccListener);
@@ -45,6 +48,17 @@ public class MainActivity extends AppCompatActivity {
 
         this.creditCardLV.setAdapter(Core.ccCustomAdapter);
         this.loyaltyProgramLV.setAdapter(Core.lpCustomAdapter);
+
+        this.creditCardLV.setClickable(true);
+        this.creditCardLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CreditCard cc = Core.theCreditCardsLL.getAtIndex(i);
+                Core.currentCC = cc;
+                Intent intent = new Intent(myContext, EditCreditCardActivity.class);
+                myContext.startActivity(intent);
+            }
+        });
 
     }
 
