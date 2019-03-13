@@ -5,24 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ListView creditCardLV, loyaltyProgramLV;
-    private MainActivity myContext;
+    private MainActivity mainActivityContext;
+
+    NetworkThread nt = new NetworkThread();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,13 +20,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.myContext = this;
+        nt.start();
+
+        this.mainActivityContext = this;
 
         //Attach an event listener to the Credit Card node in the Database
         Core.creditCardRef.addValueEventListener(Core.ccListener);
         //Attach an event listener to the Loyalty Program node in the Database
         Core.lpReference.addValueEventListener(Core.lpListener);
-
 
         this.creditCardLV = (ListView)this.findViewById(R.id.creditCardListView);
         this.loyaltyProgramLV = (ListView)this.findViewById(R.id.loyaltyProgramListView);
@@ -55,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 CreditCard cc = Core.theCreditCardsLL.getAtIndex(i);
                 Core.currentCC = cc;
-                Intent intent = new Intent(myContext, EditCreditCardActivity.class);
-                myContext.startActivity(intent);
+                Intent intent = new Intent(mainActivityContext, EditCreditCardActivity.class);
+                mainActivityContext.startActivity(intent);
             }
         });
 
@@ -71,6 +62,12 @@ public class MainActivity extends AppCompatActivity {
     public void onAddLoyaltyProgramButtonPressed(View v)
     {
         Intent i = new Intent(this, AddLoyaltyProgramActivity.class);
+        this.startActivity(i);
+    }
+
+    public void onAirportButtonPressed(View v)
+    {
+        Intent i = new Intent(this, AirportListActivity.class);
         this.startActivity(i);
     }
 

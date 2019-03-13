@@ -20,9 +20,10 @@ public class Core
     private static FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     public static DatabaseReference creditCardRef = mDatabase.getReference("creditCards");
     public static DatabaseReference lpReference = mDatabase.getReference("loyaltyPrograms");
+    public static DatabaseReference airportRef = mDatabase.getReference("airports");
 
-    private static int firstRunCC = 1;
-    private static int firstRunLP = 1;
+    //private static int firstRunCC = 1;
+    //private static int firstRunLP = 1;
 
     //encapsulated
     public static void addLoyaltyProgram(LoyaltyProgram lp)
@@ -44,25 +45,19 @@ public class Core
         {
             // This method is called once with the initial value and again
             // whenever data at this location is updated.
-            //String value = dataSnapshot.getValue(String.class);
-            //System.out.println("********* " + dataSnapshot.toString());
-            if(firstRunCC == 1) {
                 for(DataSnapshot ds : dataSnapshot.getChildren())
                 {
-                    //de-serialize the card
                     CreditCard cc = ds.getValue(CreditCard.class);
+                    cc.setKey(ds.getKey());
                     Core.addCreditCard(cc);
                     //Log.d(TAG, "Value is: " + cc);
                 }
-                firstRunCC = 0;
-            }
         }
 
         @Override
         public void onCancelled(DatabaseError error)
         {
             // Failed to read value
-
         }
     };
 
@@ -72,18 +67,14 @@ public class Core
         {
             // This method is called once with the initial value and again
             // whenever data at this location is updated.
-            //String value = dataSnapshot.getValue(String.class);
-            //System.out.println("********* " + dataSnapshot.toString());
-            if(firstRunLP == 1){
-                for(DataSnapshot ds : dataSnapshot.getChildren())
+             for(DataSnapshot ds : dataSnapshot.getChildren())
                 {
                     //de-serialize the program
                     LoyaltyProgram lp = ds.getValue(LoyaltyProgram.class);
+                    lp.setKey(ds.getKey());
                     Core.addLoyaltyProgram(lp);
                     //Log.d(TAG, "Value is: " + cc);
                 }
-                firstRunLP = 0;
-            }
         }
 
         @Override

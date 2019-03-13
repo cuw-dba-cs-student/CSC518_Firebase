@@ -1,11 +1,15 @@
 package com.example.awesomefat.csc518_listexample;
 
+import com.google.firebase.database.DatabaseReference;
+
 import java.io.Serializable;
 
 public class LoyaltyProgram implements Serializable {
     private String name;
     private String bank;
     private int point_balance;
+    private String key;
+    private DatabaseReference dbRef;
 
 
     public LoyaltyProgram(){
@@ -43,7 +47,19 @@ public class LoyaltyProgram implements Serializable {
         return bank;
     }
 
-    public int getPoint_balance() {
+    public int getPoint_balance()
+    {
         return point_balance;
+    }
+
+    public void setKey(String key)
+    {
+        this.key = key;
+        this.dbRef = Core.lpReference.child(this.key);
+    }
+
+    public void save()
+    {
+        this.dbRef.setValue(this);
     }
 }

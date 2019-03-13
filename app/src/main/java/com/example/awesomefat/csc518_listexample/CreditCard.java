@@ -1,5 +1,7 @@
 package com.example.awesomefat.csc518_listexample;
 
+import com.google.firebase.database.DatabaseReference;
+
 import java.io.Serializable;
 
 public class CreditCard implements Serializable
@@ -8,6 +10,8 @@ public class CreditCard implements Serializable
     public String start_date;
     public int min_spend;
     public int point_bonus;
+    private String key;
+    private DatabaseReference ref;
 
     public CreditCard(String name, String start_date, int min_spend, int point_bonus)
     {
@@ -50,7 +54,19 @@ public class CreditCard implements Serializable
     {
         System.out.println("*****Name: " + this.name +
                 " (" + this.start_date + ") - Min Spend: "
-        + this.min_spend + " - Bonus: " + this.point_bonus);
+                + this.min_spend + " - Bonus: " + this.point_bonus);
     }
 
+    public void setKey(String key) {
+        this.key = key;
+        this.ref = Core.creditCardRef.child(this.key);
+    }
+
+    public void save() {
+        this.ref.setValue(this);
+    }
+
+    public void delete() {
+        this.ref.removeValue();
+    }
 }
