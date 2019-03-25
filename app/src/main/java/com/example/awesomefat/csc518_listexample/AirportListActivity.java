@@ -1,9 +1,11 @@
 package com.example.awesomefat.csc518_listexample;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -20,6 +22,7 @@ public class AirportListActivity extends AppCompatActivity {
     private LinkedList<Airport> listOfAirports = new LinkedList<Airport>();
     ArrayAdapter<String> aa;
     private EditText filterET;
+    private AirportListActivity myContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,7 @@ public class AirportListActivity extends AppCompatActivity {
 
         this.airportLV.setAdapter(aa);
 
-        Core.airportRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        FbCore.airportRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Airport ap;
@@ -49,6 +52,21 @@ public class AirportListActivity extends AppCompatActivity {
 
             }
         });
+
+        //Set a callback on the Loyalty Program Listview
+        this.airportLV.setClickable(true);
+        this.airportLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Airport ap = listOfAirports.get(i);
+                System.out.println("The selected air port is " + ap.toString());
+                // Load the clicked loyalty program into the singleton current loyalty program object
+                //LpCore.currentLP = lp;
+                //Intent intent = new Intent(myContext, AirportDestinations.class);
+                //myContext.startActivity(intent);
+            }
+        });
+
     }
 
     public void onFilterButtonPressed(View v)
@@ -63,4 +81,6 @@ public class AirportListActivity extends AppCompatActivity {
         this.aa.notifyDataSetChanged();
 
     }
+
+
 }

@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView creditCardLV, loyaltyProgramLV;
     private MainActivity mainActivityContext;
 
-    NetworkThread nt = new NetworkThread();
+    //NetworkThread nt = new NetworkThread();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nt.start();
+        //nt.start();
 
         this.mainActivityContext = this;
 

@@ -26,7 +26,7 @@ public class NetworkThread extends Thread {
                     }
                 }
             }
-            Core.airportRef.setValue(apLnkLst);
+            FbCore.airportRef.setValue(apLnkLst);
         }
         catch(Exception e)
         {
