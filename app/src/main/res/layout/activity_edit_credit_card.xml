@@ -7,8 +7,8 @@
     tools:context=".EditCreditCardActivity">
 
     <LinearLayout
-        android:layout_width="368dp"
-        android:layout_height="495dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
@@ -22,6 +22,7 @@
                 android:id="@+id/ccUpdateBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:onClick="onUpdateButtonPressed"
                 android:text="Update" />
 
@@ -32,6 +33,7 @@
                 android:layout_weight="1"
                 android:onClick="onDeleteButtonPressed"
                 android:text="Delete" />
+
         </LinearLayout>
 
         <EditText
@@ -65,5 +67,6 @@
             android:ems="10"
             android:hint="Bonus Points"
             android:inputType="number" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

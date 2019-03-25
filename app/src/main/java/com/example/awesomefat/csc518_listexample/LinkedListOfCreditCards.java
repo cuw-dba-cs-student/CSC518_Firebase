@@ -7,8 +7,7 @@ public class LinkedListOfCreditCards
 
     public LinkedListOfCreditCards()
     {
-        this.head = null;
-        this.count = 0;
+        this.emptyList();
     }
 
     public int length()
@@ -45,5 +44,10 @@ public class LinkedListOfCreditCards
             currNode.setNextNode(n);
         }
         this.count++;
+    }
+
+    public void emptyList() {
+        this.head = null;
+        this.count = 0;
     }
 }

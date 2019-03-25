@@ -5,11 +5,14 @@ import com.google.firebase.database.DatabaseReference;
 import java.io.Serializable;
 
 public class LoyaltyProgram implements Serializable {
-    private String name;
-    private String bank;
-    private int point_balance;
+    //private String name;
+    public String name;
+    //private String bank;
+    public String bank;
+    //private int point_balance;
+    public int point_balance;
     private String key;
-    private DatabaseReference dbRef;
+    private DatabaseReference myRef;
 
 
     public LoyaltyProgram(){
@@ -55,11 +58,14 @@ public class LoyaltyProgram implements Serializable {
     public void setKey(String key)
     {
         this.key = key;
-        this.dbRef = Core.lpReference.child(this.key);
+        this.myRef = FbCore.lpReference.child(this.key);
     }
 
     public void save()
     {
-        this.dbRef.setValue(this);
+        this.myRef.setValue(this);
+    }
+    public void delete() {
+        this.myRef.removeValue();
     }
 }

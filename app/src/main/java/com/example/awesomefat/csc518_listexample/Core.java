@@ -22,8 +22,7 @@ public class Core
     public static DatabaseReference lpReference = mDatabase.getReference("loyaltyPrograms");
     public static DatabaseReference airportRef = mDatabase.getReference("airports");
 
-    //private static int firstRunCC = 1;
-    //private static int firstRunLP = 1;
+
 
     //encapsulated
     public static void addLoyaltyProgram(LoyaltyProgram lp)

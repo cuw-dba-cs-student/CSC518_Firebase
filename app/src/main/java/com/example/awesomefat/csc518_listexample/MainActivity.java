@@ -24,29 +24,42 @@ public class MainActivity extends AppCompatActivity {
 
         this.mainActivityContext = this;
 
-        //Attach an event listener to the Credit Card node in the Database
-        Core.creditCardRef.addValueEventListener(Core.ccListener);
-        //Attach an event listener to the Loyalty Program node in the Database
-        Core.lpReference.addValueEventListener(Core.lpListener);
+        //Attach an event listener to the Credit Card and Loyalty Program nodes in Firbase
+        FbCore.ccReference.addValueEventListener(CcCore.ccListener);
+        FbCore.lpReference.addValueEventListener(LpCore.lpListener);
 
         this.creditCardLV = (ListView)this.findViewById(R.id.creditCardListView);
         this.loyaltyProgramLV = (ListView)this.findViewById(R.id.loyaltyProgramListView);
 
-        Core.ccCustomAdapter = new CreditCardArrayAdapterForLinkedLists(this,
-                R.layout.custom_credit_card_row, Core.theCreditCardsLL);
-        Core.lpCustomAdapter = new LoyaltyProgramArrayAdapterForLinkedLists(this,
-                R.layout.loyalty_program_custom_row, Core.theLoyaltyProgramsLL);
+        CcCore.ccCustomAdapter = new CreditCardArrayAdapterForLinkedLists(this,
+                R.layout.custom_credit_card_row, CcCore.theCreditCardsLL);
+        LpCore.lpCustomAdapter = new LoyaltyProgramArrayAdapterForLinkedLists(this,
+                R.layout.loyalty_program_custom_row, LpCore.theLoyaltyProgramsLL);
 
-        this.creditCardLV.setAdapter(Core.ccCustomAdapter);
-        this.loyaltyProgramLV.setAdapter(Core.lpCustomAdapter);
+        this.creditCardLV.setAdapter(CcCore.ccCustomAdapter);
+        this.loyaltyProgramLV.setAdapter(LpCore.lpCustomAdapter);
 
+        //Set a callback on the Credit Card Listview
         this.creditCardLV.setClickable(true);
         this.creditCardLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                CreditCard cc = Core.theCreditCardsLL.getAtIndex(i);
-                Core.currentCC = cc;
+                CreditCard cc = CcCore.theCreditCardsLL.getAtIndex(i);
+                CcCore.currentCC = cc;
                 Intent intent = new Intent(mainActivityContext, EditCreditCardActivity.class);
+                mainActivityContext.startActivity(intent);
+            }
+        });
+
+        //Set a callback on the Loyalty Program Listview
+        this.loyaltyProgramLV.setClickable(true);
+        this.loyaltyProgramLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                LoyaltyProgram lp = LpCore.theLoyaltyProgramsLL.getAtIndex(i);
+                // Load the clicked loyalty program into the singleton current loyalty program object
+                LpCore.currentLP = lp;
+                Intent intent = new Intent(mainActivityContext, EditLoyaltyProgramActivity.class);
                 mainActivityContext.startActivity(intent);
             }
         });

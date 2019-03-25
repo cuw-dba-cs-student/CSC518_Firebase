@@ -11,7 +11,7 @@ public class CreditCard implements Serializable
     public int min_spend;
     public int point_bonus;
     private String key;
-    private DatabaseReference ref;
+    private DatabaseReference myRef;
 
     public CreditCard(String name, String start_date, int min_spend, int point_bonus)
     {
@@ -22,9 +22,7 @@ public class CreditCard implements Serializable
     }
 
     //no argument constructor required for de-serialization
-    public CreditCard()
-    {
-    }
+    public CreditCard(){}
 
     public String getName()
     {
@@ -59,14 +57,14 @@ public class CreditCard implements Serializable
 
     public void setKey(String key) {
         this.key = key;
-        this.ref = Core.creditCardRef.child(this.key);
+        this.myRef = FbCore.ccReference.child(this.key);
     }
 
     public void save() {
-        this.ref.setValue(this);
+        this.myRef.setValue(this);
     }
 
     public void delete() {
-        this.ref.removeValue();
+        this.myRef.removeValue();
     }
 }

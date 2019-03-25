@@ -7,8 +7,8 @@ public class LinkedListOfLoyaltyPrograms
 
     public LinkedListOfLoyaltyPrograms()
     {
-        this.head = null;
-        this.count = 0;
+        // Initialize an empty Linked List
+        this.emptyList();
     }
 
     public int length()
@@ -44,5 +44,10 @@ public class LinkedListOfLoyaltyPrograms
             currNode = currNode.getNextNode();
         }
         return currNode.getPayload();
+    }
+
+    public void emptyList() {
+        this.head = null;
+        this.count = 0;
     }
 }

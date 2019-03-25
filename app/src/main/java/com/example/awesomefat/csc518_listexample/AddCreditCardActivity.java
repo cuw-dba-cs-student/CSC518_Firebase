@@ -30,11 +30,11 @@ public class AddCreditCardActivity extends AppCompatActivity
         int creditCardMinSpend = Integer.parseInt(this.creditCardMinSpendET.getText().toString());
         int creditCardBonusPoints = Integer.parseInt(this.creditCardBonusPointET.getText().toString());
 
-        CreditCard cc = new CreditCard(creditCardName, creditCardStartDate,
-                creditCardMinSpend,creditCardBonusPoints);
-        Core.addCreditCard(cc);
+        CreditCard cc = new CreditCard( creditCardName,    creditCardStartDate,
+                                        creditCardMinSpend,creditCardBonusPoints );
+        CcCore.addCreditCard(cc);
         //Add the Credit Card to Firebase
-        Core.creditCardRef.push().setValue(cc);
+        FbCore.ccReference.push().setValue(cc);
         this.finish();
     }
 }

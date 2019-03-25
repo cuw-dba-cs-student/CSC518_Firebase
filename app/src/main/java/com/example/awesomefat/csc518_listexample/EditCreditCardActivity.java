@@ -25,10 +25,10 @@ public class EditCreditCardActivity extends AppCompatActivity {
         this.ccMinSpendET = this.findViewById(R.id.ccMinSpendET);
         this.ccBonusPointsET = this.findViewById(R.id.ccBonusPointsET);
 
-        this.ccNameET.setText(Core.currentCC.getName());
-        this.ccBonusPointsET.setText("" + Core.currentCC.getPoint_bonus());
-        this.ccMinSpendET.setText("" + Core.currentCC.getMin_spend());
-        this.ccStartDateET.setText(Core.currentCC.getStart_date());
+        this.ccNameET.setText(CcCore.currentCC.getName());
+        this.ccBonusPointsET.setText("" + CcCore.currentCC.getPoint_bonus());
+        this.ccMinSpendET.setText("" + CcCore.currentCC.getMin_spend());
+        this.ccStartDateET.setText(CcCore.currentCC.getStart_date());
 
         this.myself = this;
 
@@ -36,6 +36,7 @@ public class EditCreditCardActivity extends AppCompatActivity {
 
     public void onUpdateButtonPressed(View v)
     {
+        System.out.println("The credit card \"Update\" button has been pressed.");
         //Grab the current values from the edit texts in activity_edit_credit_card.xml
         String ccName = this.ccNameET.getText().toString();
         String ccStartDate = this.ccStartDateET.getText().toString();
@@ -43,26 +44,29 @@ public class EditCreditCardActivity extends AppCompatActivity {
         int ccBonusPoints = Integer.parseInt(this.ccBonusPointsET.getText().toString());
 
         //Push the values into the singleton
-        Core.currentCC.name = ccName;
-        Core.currentCC.start_date =  ccStartDate;
-        Core.currentCC.min_spend = ccMinSpend;
-        Core.currentCC.point_bonus = ccBonusPoints;
-        Core.currentCC.save();
+        CcCore.currentCC.name = ccName;
+        CcCore.currentCC.start_date =  ccStartDate;
+        CcCore.currentCC.min_spend = ccMinSpend;
+        CcCore.currentCC.point_bonus = ccBonusPoints;
+        CcCore.currentCC.save();
         this.finish();
 
     }
 
     public void onDeleteButtonPressed(View v)
     {
-        AlertDialog.Builder areyousure = new AlertDialog.Builder(this);
-        areyousure.setMessage("Are you sure?");
-        areyousure.setTitle("Delete Card?");
-        areyousure.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        System.out.println("The credit card \"Delete\" button has been pressed.");
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setMessage("Are you sure you want to delete this credit card?");
+        alertDialog.setTitle("Delete Credit Card?");
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Core.currentCC.delete();
+                CcCore.currentCC.delete();
                 myself.finish();
             }
         });
+        alertDialog.setNegativeButton("No", null);
+        alertDialog.show();
     }
 }

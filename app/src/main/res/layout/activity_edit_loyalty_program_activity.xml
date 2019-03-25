@@ -6,4 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".EditLoyaltyProgramActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/lpUpdateBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onUpdateLpBtnPressed"
+                android:text="Update" />
+
+            <Button
+                android:id="@+id/lpDeleteBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onDeleteLpBtnPressed"
+                android:text="Delete" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/lpNameET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Loyalty Program"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/lpBankET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Bank"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/lpPointsET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Point Balance"
+            android:inputType="number" />
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
