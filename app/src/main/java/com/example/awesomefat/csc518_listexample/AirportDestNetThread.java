@@ -24,6 +24,7 @@ public class AirportDestNetThread extends Thread {
         try
         {
             //URL airportURL = new URL("https://www.flightsfrom.com/" + "MKE" + "/destinations");
+            System.out.println("*** Opening a connection to flightsfrom.com...");
             URL airportURL = new URL("https://www.flightsfrom.com/" + this.airportCode + "/destinations");
 
             HttpURLConnection conn = (HttpURLConnection)airportURL.openConnection();
@@ -48,15 +49,18 @@ public class AirportDestNetThread extends Thread {
                     beforeIndex += beforeVal.length();
                     afterIndex = part.indexOf(afterVal, beforeIndex);
                     CoreAp.theAirportDestStrings.add(part.substring(beforeIndex, afterIndex));
+                    CoreAp.destArrayAdapter.notifyDataSetChanged();
                     System.out.println("***" + part.substring(beforeIndex, afterIndex));
                 }
             }
+            //CoreAp.destArrayAdapter.notifyDataSetChanged();
             System.out.println("*** Done");
+            conn.disconnect();
 
         }
         catch(Exception e)
         {
-            System.out.println("***" + e.toString());
+            System.out.println("*** Exception:" + e.toString());
         }
     }
 }

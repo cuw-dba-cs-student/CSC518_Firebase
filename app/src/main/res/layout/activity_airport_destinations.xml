@@ -11,12 +11,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView3"
+        <Button
+            android:id="@+id/goBackToAListActivityBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:onClick="onGoBackToAListActivityBtnPressed"
+            android:text="Return to Airport List" />
+
+        <TextView
+            android:id="@+id/apDestinationsTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Desintations"
             android:textSize="24sp"
             tools:text="Desintations" />
+
+        <ListView
+            android:id="@+id/destinationsLV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
