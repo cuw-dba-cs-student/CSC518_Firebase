@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class EditCreditCardActivity extends AppCompatActivity {
 
@@ -25,10 +24,10 @@ public class EditCreditCardActivity extends AppCompatActivity {
         this.ccMinSpendET = this.findViewById(R.id.ccMinSpendET);
         this.ccBonusPointsET = this.findViewById(R.id.ccBonusPointsET);
 
-        this.ccNameET.setText(CcCore.currentCC.getName());
-        this.ccBonusPointsET.setText("" + CcCore.currentCC.getPoint_bonus());
-        this.ccMinSpendET.setText("" + CcCore.currentCC.getMin_spend());
-        this.ccStartDateET.setText(CcCore.currentCC.getStart_date());
+        this.ccNameET.setText(CoreCc.currentCC.getName());
+        this.ccBonusPointsET.setText("" + CoreCc.currentCC.getPoint_bonus());
+        this.ccMinSpendET.setText("" + CoreCc.currentCC.getMin_spend());
+        this.ccStartDateET.setText(CoreCc.currentCC.getStart_date());
 
         this.myself = this;
 
@@ -44,11 +43,11 @@ public class EditCreditCardActivity extends AppCompatActivity {
         int ccBonusPoints = Integer.parseInt(this.ccBonusPointsET.getText().toString());
 
         //Push the values into the singleton
-        CcCore.currentCC.name = ccName;
-        CcCore.currentCC.start_date =  ccStartDate;
-        CcCore.currentCC.min_spend = ccMinSpend;
-        CcCore.currentCC.point_bonus = ccBonusPoints;
-        CcCore.currentCC.save();
+        CoreCc.currentCC.name = ccName;
+        CoreCc.currentCC.start_date =  ccStartDate;
+        CoreCc.currentCC.min_spend = ccMinSpend;
+        CoreCc.currentCC.point_bonus = ccBonusPoints;
+        CoreCc.currentCC.save();
         this.finish();
 
     }
@@ -62,7 +61,7 @@ public class EditCreditCardActivity extends AppCompatActivity {
         alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                CcCore.currentCC.delete();
+                CoreCc.currentCC.delete();
                 myself.finish();
             }
         });

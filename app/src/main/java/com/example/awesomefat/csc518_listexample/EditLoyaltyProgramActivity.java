@@ -22,9 +22,9 @@ public class EditLoyaltyProgramActivity extends AppCompatActivity {
         lpBank = findViewById(R.id.lpBankET);
         lpPoints = findViewById(R.id.lpPointsET);
 
-        lpName.setText   ( LpCore.currentLP.getName() );
-        lpBank.setText   ( LpCore.currentLP.getBank() );
-        lpPoints.setText ( "" + LpCore.currentLP.getPoint_balance() );
+        lpName.setText   ( CoreLp.currentLP.getName() );
+        lpBank.setText   ( CoreLp.currentLP.getBank() );
+        lpPoints.setText ( "" + CoreLp.currentLP.getPoint_balance() );
         //Set myContext to point at the current EditLoyaltyProgramActivity object that was
         //created in this constructor.
         this.myContext = this;
@@ -32,11 +32,11 @@ public class EditLoyaltyProgramActivity extends AppCompatActivity {
 
     public void onUpdateLpBtnPressed(View v) {
 
-        LpCore.currentLP.bank = this.lpBank.getText().toString();
-        LpCore.currentLP.name = this.lpName.getText().toString();
-        LpCore.currentLP.point_balance = Integer.parseInt( this.lpPoints.getText().toString() );
+        CoreLp.currentLP.bank = this.lpBank.getText().toString();
+        CoreLp.currentLP.name = this.lpName.getText().toString();
+        CoreLp.currentLP.point_balance = Integer.parseInt( this.lpPoints.getText().toString() );
 
-        LpCore.currentLP.save();
+        CoreLp.currentLP.save();
 
         this.finish();
 
@@ -49,7 +49,7 @@ public class EditLoyaltyProgramActivity extends AppCompatActivity {
         alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                LpCore.currentLP.delete();
+                CoreLp.currentLP.delete();
                 myContext.finish();
             }
         });

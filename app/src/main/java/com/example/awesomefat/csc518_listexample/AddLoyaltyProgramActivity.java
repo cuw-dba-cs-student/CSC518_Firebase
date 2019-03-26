@@ -29,7 +29,7 @@ public class AddLoyaltyProgramActivity extends AppCompatActivity
         int currPoints = Integer.parseInt(this.loyaltyPointsET.getText().toString());
 
         LoyaltyProgram lp = new LoyaltyProgram(programName, bankName, currPoints);
-        LpCore.addLoyaltyProgram(lp);
+        CoreLp.addLoyaltyProgram(lp);
         FbCore.lpReference.push().setValue(lp);
         this.finish();
     }

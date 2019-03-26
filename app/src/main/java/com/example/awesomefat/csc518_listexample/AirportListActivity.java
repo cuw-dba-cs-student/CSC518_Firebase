@@ -30,6 +30,7 @@ public class AirportListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_airport_list_activity);
         this.airportLV = this.findViewById(R.id.airportLV);
         this.filterET = this.findViewById(R.id.filterET);
+        this.myContext = this;
 
         aa = new ArrayAdapter<String>(this, R.layout.another_row, this.theAirportStrings);
 
@@ -57,13 +58,17 @@ public class AirportListActivity extends AppCompatActivity {
         this.airportLV.setClickable(true);
         this.airportLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Airport ap = listOfAirports.get(i);
-                System.out.println("The selected air port is " + ap.toString());
-                // Load the clicked loyalty program into the singleton current loyalty program object
-                //LpCore.currentLP = lp;
-                //Intent intent = new Intent(myContext, AirportDestinations.class);
-                //myContext.startActivity(intent);
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Airport ap = listOfAirports.get(position);
+                //System.out.println("The selected air port is " + ap.toString());
+                // Load the clicked airport into the airport singleton current airport object
+                //CoreAp.currentAirport = ap;
+                //Get the selected airport string and put it into variable "airport"
+                String airport = (String)airportLV.getItemAtPosition(position);
+                System.out.println("The selected airport is " + airport);
+                Intent intent = new Intent(myContext, AirportDestinations.class);
+                intent.putExtra("SELECTED_AIRPORT",airport);
+                myContext.startActivity(intent);
             }
         });
 

@@ -6,15 +6,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-public class CcCore {
+public class CoreCc {
     public static CreditCardArrayAdapterForLinkedLists ccCustomAdapter;
     public static LinkedListOfCreditCards theCreditCardsLL = new LinkedListOfCreditCards();
     public static CreditCard currentCC = null;
 
     public static void addCreditCard(CreditCard cc)
     {
-        CcCore.theCreditCardsLL.addEnd(cc);
-        CcCore.ccCustomAdapter.notifyDataSetChanged();
+        CoreCc.theCreditCardsLL.addEnd(cc);
+        CoreCc.ccCustomAdapter.notifyDataSetChanged();
     }
 
     public static ValueEventListener ccListener = new ValueEventListener() {
@@ -23,12 +23,12 @@ public class CcCore {
         {
             // This method is called once with the initial value and again
             // whenever data at this location is updated.
-            CcCore.theCreditCardsLL.emptyList();
+            CoreCc.theCreditCardsLL.emptyList();
             for(DataSnapshot ds : dataSnapshot.getChildren())
             {
                 CreditCard cc = ds.getValue(CreditCard.class);
                 cc.setKey(ds.getKey());
-                CcCore.addCreditCard(cc);
+                CoreCc.addCreditCard(cc);
                 //Log.d(TAG, "Value is: " + cc);
             }
         }
