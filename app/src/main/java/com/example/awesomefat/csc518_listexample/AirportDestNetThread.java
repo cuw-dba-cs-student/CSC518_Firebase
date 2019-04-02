@@ -1,6 +1,8 @@
 package com.example.awesomefat.csc518_listexample;
 
 import android.app.Activity;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.firebase.database.DatabaseReference;
 
@@ -16,7 +18,6 @@ public class AirportDestNetThread extends Thread {
     private String airportCode;
     private Activity activity;
     private String airport;
-
 
     public AirportDestNetThread(String airportCode, Activity activity)
     {
@@ -54,10 +55,9 @@ public class AirportDestNetThread extends Thread {
                 {
                     beforeIndex += beforeVal.length();
                     afterIndex = part.indexOf(afterVal, beforeIndex);
-                    //this.airport = part.substring(beforeIndex, afterIndex);
+
                     CoreAp.theAirportDestStrings.add(part.substring(beforeIndex, afterIndex));
-                    //CoreAp.destArrayAdapter.notifyDataSetChanged();
-                    //this@AirportDestinations.addApDest(part.substring(beforeIndex, afterIndex));
+
                     this.activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -70,6 +70,14 @@ public class AirportDestNetThread extends Thread {
             //CoreAp.destArrayAdapter.notifyDataSetChanged();
             System.out.println("*** Done");
             conn.disconnect();
+            this.activity.runOnUiThread(new Runnable() {
+                private ProgressBar spinner;
+                @Override
+                public void run() {
+                    this.spinner = activity.findViewById(R.id.destinationPB);
+                    this.spinner.setVisibility(View.GONE);
+                }
+            });
 
         }
         catch(Exception e)
@@ -77,7 +85,6 @@ public class AirportDestNetThread extends Thread {
             System.out.println("*** Exception:" + e.toString());
         }
     }
-
 
 }
 

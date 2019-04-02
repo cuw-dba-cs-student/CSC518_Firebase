@@ -26,6 +26,13 @@
             android:textSize="24sp"
             tools:text="Desintations" />
 
+        <ProgressBar
+            android:id="@+id/destinationPB"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
         <ListView
             android:id="@+id/destinationsLV"
             android:layout_width="match_parent"
