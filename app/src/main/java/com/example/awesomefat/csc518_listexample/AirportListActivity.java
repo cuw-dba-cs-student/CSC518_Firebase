@@ -60,14 +60,15 @@ public class AirportListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Airport ap = listOfAirports.get(position);
-                //System.out.println("The selected air port is " + ap.toString());
-                // Load the clicked airport into the airport singleton current airport object
-                //CoreAp.currentAirport = ap;
                 //Get the selected airport string and put it into variable "airport"
                 String airport = (String)airportLV.getItemAtPosition(position);
-                System.out.println("The selected airport is " + airport);
+                String iata_code;
+                int first = airport.indexOf("\"");
+                int second = airport.indexOf("\"", first + 1);
+                iata_code = airport.substring(first + 1, second);
+                System.out.println("The selected airport is " + iata_code);
                 Intent intent = new Intent(myContext, AirportDestinations.class);
-                intent.putExtra("SELECTED_AIRPORT",airport);
+                intent.putExtra("SELECTED_AIRPORT",iata_code);
                 myContext.startActivity(intent);
             }
         });
