@@ -1,5 +1,6 @@
 package com.example.awesomefat.csc518_listexample;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ public class AirportDestinations extends AppCompatActivity {
         CoreAp.destArrayAdapter = new ArrayAdapter<String>(this, R.layout.another_row, CoreAp.theAirportDestStrings);
         this.destinationsLV = this.findViewById(R.id.destinationsLV);
         this.destinationsLV.setAdapter(CoreAp.destArrayAdapter);
-        dnt = new AirportDestNetThread(this.iata);
+        dnt = new AirportDestNetThread(this.iata, this );
         dnt.start();
         //CoreAp.destArrayAdapter.notifyDataSetChanged();
 
@@ -39,6 +40,17 @@ public class AirportDestinations extends AppCompatActivity {
         CoreAp.theAirportDestStrings.clear();
         CoreAp.destArrayAdapter.notifyDataSetChanged();
         this.finish();
+    }
+
+    public void addApDest(String ap) {
+        final String airport = ap;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                CoreAp.theAirportDestStrings.add(airport);
+                CoreAp.destArrayAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
 }

@@ -1,5 +1,7 @@
 package com.example.awesomefat.csc518_listexample;
 
+import android.app.Activity;
+
 import com.google.firebase.database.DatabaseReference;
 
 import java.io.BufferedReader;
@@ -12,11 +14,14 @@ import java.util.Scanner;
 
 public class AirportDestNetThread extends Thread {
     private String airportCode;
+    private Activity activity;
+    private String airport;
 
 
-    public AirportDestNetThread(String airportCode)
+    public AirportDestNetThread(String airportCode, Activity activity)
     {
         this.airportCode = airportCode;
+        this.activity = activity;
     }
 
     public void run()
@@ -39,6 +44,7 @@ public class AirportDestNetThread extends Thread {
             String[] parts = data.split("airport-content-destination-list-name");
             String beforeVal = "destination-search-item\">";
             String afterVal = "</span>";
+            final String airport;
             int beforeIndex, afterIndex;
 
             for(String part : parts)
@@ -48,8 +54,16 @@ public class AirportDestNetThread extends Thread {
                 {
                     beforeIndex += beforeVal.length();
                     afterIndex = part.indexOf(afterVal, beforeIndex);
+                    //this.airport = part.substring(beforeIndex, afterIndex);
                     CoreAp.theAirportDestStrings.add(part.substring(beforeIndex, afterIndex));
-                    CoreAp.destArrayAdapter.notifyDataSetChanged();
+                    //CoreAp.destArrayAdapter.notifyDataSetChanged();
+                    //this@AirportDestinations.addApDest(part.substring(beforeIndex, afterIndex));
+                    this.activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            CoreAp.destArrayAdapter.notifyDataSetChanged();
+                        }
+                    });
                     System.out.println("***" + part.substring(beforeIndex, afterIndex));
                 }
             }
@@ -63,5 +77,7 @@ public class AirportDestNetThread extends Thread {
             System.out.println("*** Exception:" + e.toString());
         }
     }
+
+
 }
 
